@@ -1,0 +1,64 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+{% if title %}
+Flask Journal — {{title}}
+{% else %}
+Flask Journal
+{% endif %}
+{% endblock %}
+
+{%- block styles %}
+	<!-- Bootstrap -->
+	<link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}">
+{%- endblock styles %}
+
+{% block content %}
+<header class="container">
+	{% if h1 %}
+	<h1>{{h1}}</h1>
+	{% else %}
+	<h1>FJ: {{title}}</h1>
+	{% endif %}
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+		<div class="container">
+			<a class="navbar-brand mr-4" href="/">Flask Journal</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarToggle">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarToggle">
+				<div class="navbar-nav mr-auto">
+					<a href="/" class="nav-item nav-link">Home</a>
+					<a href="/about" class="nav-item nav-link">About</a>
+				</div>
+				<!-- Navbar right side -->
+				<div class="navbar-nav">
+					<a href="/login" class="nav-item nav-link">Login</a>
+					<a href="/register" class="nav-item nav-link">Register</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+</header>
+<main role="main" class="container">
+	<div class="row">
+		<div class="col-md-8">
+			{% block maincontent %}{% endblock %}
+		</div>
+		<div class="col-md-4">
+			<div class="content-section">
+				<h3>Our Sidebar</h3>
+				<p class="text-muted">You can put any info here you'd like</p>
+				<ul>
+					<li>Latest posts</li>
+					<li>Announcements</li>
+					<li>Calendars</li>
+					<li>etc.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}
