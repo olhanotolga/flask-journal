@@ -24,19 +24,24 @@ Flask Journal
 
 	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
 		<div class="container">
-			<a class="navbar-brand mr-4" href="/">Flask Journal</a>
+			<a class="navbar-brand mr-4" href="{{ url_for('home') }}">Flask Journal</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarToggle">
-				<span class="navbar-toggler-icon"></span>
+				<span class="navbar-toggler-icon">↓</span>
 			</button>
-			<div class="collapse navbar-collapse" id="navbarToggle">
+			<div class="collapse navbar-collapse collapse" id="navbarToggle">
 				<div class="navbar-nav mr-auto">
-					<a href="/" class="nav-item nav-link">Home</a>
-					<a href="/about" class="nav-item nav-link">About</a>
+					<a href="{{ url_for('home') }}" class="nav-item nav-link">Home</a>
+					<a href="{{ url_for('about') }}" class="nav-item nav-link">About</a>
 				</div>
 				<!-- Navbar right side -->
 				<div class="navbar-nav">
-					<a href="/login" class="nav-item nav-link">Login</a>
-					<a href="/register" class="nav-item nav-link">Register</a>
+					{% if current_user.is_authenticated %}
+						<a href="{{ url_for('profile') }}" class="nav-item nav-link">Profile</a>
+						<a href="{{ url_for('logout') }}" class="nav-item nav-link">Log out</a>
+					{% else %}
+						<a href="{{ url_for('login') }}" class="nav-item nav-link">Log in</a>
+						<a href="{{ url_for('register') }}" class="nav-item nav-link">Register</a>
+					{% endif %}
 				</div>
 			</div>
 		</div>
