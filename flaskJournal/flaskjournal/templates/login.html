@@ -18,21 +18,21 @@
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.email(class="form-control- form-control-lg") }}
+						{{ form.email(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
 				<div class="form-group">
 					{{ form.password.label(class="form-control-label") }}
 					
 					{% if form.password.errors %}
-						{{ form.password(class="form-control- form-control-lg is-invalid") }}
+						{{ form.password(class="form-control form-control-lg is-invalid") }}
 						<div class="invalid-feedback">
 							{% for error in form.password.errors %}
 								<span>{{ error }}</span>
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.password(class="form-control- form-control-lg") }}
+						{{ form.password(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
 				
@@ -44,15 +44,15 @@
 
 			<div class="form-group">
 				{{ form.submit(class="btn btn-outline-info") }}
+				<small class="text-muted ml-2">
+					<a href="{{ url_for('users.reset_request') }}">Forgot password?</a>
+				</small>
 			</div>
-			<small class="text-muted ml-2">
-				<a href="#">Forgot password?</a>
-			</small>
 		</form>
 	</section>
 	<div class="border-top pt-3">
 		<small class="text-muted">
-			Need an account? <a href="{{ url_for('register') }}" class="ml-2">Sign up</a>
+			Need an account? <a href="{{ url_for('users.register') }}" class="ml-2">Sign up</a>
 		</small>
 	</div>
 {% endblock maincontent %}

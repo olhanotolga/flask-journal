@@ -1,79 +1,113 @@
-{% extends "bootstrap/base.html" %}
+<!doctype html>
+<html lang="en">
 
-{% block title %}
-{% if title %}
-Flask Journal — {{title}}
-{% else %}
-Flask Journal
-{% endif %}
-{% endblock %}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{%- block styles %}
-	<!-- Bootstrap -->
-	<link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">
+	{% block styles %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}">
-{%- endblock styles %}
+	{% endblock styles %}
 
-{% block content %}
-<header class="container">
-	{% if h1 %}
-	<h1>{{h1}}</h1>
-	{% else %}
-	<h1>FJ: {{title}}</h1>
-	{% endif %}
+	{% block title %}
+	<title>
+		{% if title %}
+			Flask Journal — {{title}}
+		{% else %}
+			Flask Journal
+		{% endif %}
+	</title>
+	{% endblock title %}
+</head>
 
-	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-		<div class="container">
-			<a class="navbar-brand mr-4" href="{{ url_for('home') }}">Flask Journal</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarToggle">
-				<span class="navbar-toggler-icon">↓</span>
-			</button>
-			<div class="collapse navbar-collapse collapse" id="navbarToggle">
-				<div class="navbar-nav mr-auto">
-					<a href="{{ url_for('home') }}" class="nav-item nav-link">Home</a>
-					<a href="{{ url_for('about') }}" class="nav-item nav-link">About</a>
-				</div>
-				<!-- Navbar right side -->
-				<div class="navbar-nav">
-					{% if current_user.is_authenticated %}
-						<a href="{{ url_for('profile') }}" class="nav-item nav-link">Profile</a>
-						<a href="{{ url_for('logout') }}" class="nav-item nav-link">Log out</a>
-					{% else %}
-						<a href="{{ url_for('login') }}" class="nav-item nav-link">Log in</a>
-						<a href="{{ url_for('register') }}" class="nav-item nav-link">Register</a>
-					{% endif %}
+<body>
+	{% block content %}
+	<header class="container">
+		<h1>
+			{% if h1 %}
+			{{h1}}
+			{% else %}
+			FJ: {{title}}
+			{% endif %}
+		</h1>
+
+		<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+			<div class="container">
+				<a class="navbar-brand mr-4" href="{{ url_for('main.home') }}">Flask Journal</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+					aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarToggle">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item"><a href="{{ url_for('main.home') }}" class="nav-link">Home</a></li>
+						<li class="nav-item"><a href="{{ url_for('main.about') }}" class="nav-link">About</a></li>
+
+						<!-- Navbar right side -->
+
+						{% if current_user.is_authenticated %}
+						<li class="nav-item"><a href="{{ url_for('posts.new_post') }}" class="nav-item nav-link">New Post</a>
+						</li>
+						<li class="nav-item"><a href="{{ url_for('users.profile') }}" class="nav-item nav-link">Profile</a>
+						</li>
+						<li class="nav-item"><a href="{{ url_for('users.logout') }}" class="nav-item nav-link">Log out</a>
+						</li>
+						{% else %}
+						<li class="nav-item"><a href="{{ url_for('users.login') }}" class="nav-item nav-link">Log in</a></li>
+						<li class="nav-item"><a href="{{ url_for('users.register') }}" class="nav-item nav-link">Register</a>
+						</li>
+						{% endif %}
+					</ul>
 				</div>
 			</div>
-		</div>
-	</nav>
-</header>
-<main role="main" class="container">
-	<div class="row">
-		<div class="col-md-8">
-			{% with messages = get_flashed_messages(with_categories=true) %}
+		</nav>
+	</header>
+	<main role="main" class="container">
+		<div class="row">
+			<div class="col-md-8">
+				{% with messages = get_flashed_messages(with_categories=true) %}
 				{% if messages %}
-					{% for category, message in messages %}
-						<div class="alert alert-{{ category }}">
-							{{ message }}
-						</div>
-					{% endfor %}
+				{% for category, message in messages %}
+				<div class="alert alert-{{ category }}">
+					{{ message }}
+				</div>
+				{% endfor %}
 				{% endif %}
-			{% endwith %}
+				{% endwith %}
 
-			{% block maincontent %}{% endblock %}
-		</div>
-		<div class="col-md-4">
-			<div class="content-section">
-				<h3>Our Sidebar</h3>
-				<p class="text-muted">You can put any info here you'd like</p>
-				<ul>
-					<li>Latest posts</li>
-					<li>Announcements</li>
-					<li>Calendars</li>
-					<li>etc.</li>
-				</ul>
+				{% block maincontent %}{% endblock maincontent %}
+
+			</div>
+			<div class="col-md-4">
+				<div class="content-section">
+					<h3>Our Sidebar</h3>
+					<p class="text-muted">You can put any info here you'd like</p>
+					<ul>
+						<li>Latest posts</li>
+						<li>Announcements</li>
+						<li>Calendars</li>
+						<li>etc.</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
-</main>
-{% endblock %}
+	</main>
+	{% endblock content %}
+
+	{% block scripts %}
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	{% endblock scripts %}
+</body>
+
+</html>

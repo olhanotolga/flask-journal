@@ -11,14 +11,14 @@
 					{{ form.username.label(class="form-control-label") }}
 
 					{% if form.username.errors %}
-						{{ form.username(class="form-control- form-control-lg is-invalid") }}
+						{{ form.username(class="form-control form-control-lg is-invalid") }}
 						<div class="invalid-feedback">
 							{% for error in form.username.errors %}
 								<span>{{ error }}</span>
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.username(class="form-control- form-control-lg") }}
+						{{ form.username(class="form-control form-control-lg") }}
 					{% endif %}	
 				</div>
 
@@ -26,14 +26,14 @@
 					{{ form.email.label(class="form-control-label") }}
 					
 					{% if form.email.errors %}
-						{{ form.email(class="form-control- form-control-lg is-invalid") }}
+						{{ form.email(class="form-control form-control-lg is-invalid") }}
 						<div class="invalid-feedback">
 							{% for error in form.email.errors %}
 								<span>{{ error }}</span>
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.email(class="form-control- form-control-lg") }}
+						{{ form.email(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
 
@@ -48,7 +48,7 @@
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.password(class="form-control- form-control-lg") }}
+						{{ form.password(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
 
@@ -56,14 +56,14 @@
 					{{ form.confirm_password.label(class="form-control-label") }}
 					
 					{% if form.confirm_password.errors %}
-						{{ form.confirm_password(class="form-control- form-control-lg is-invalid") }}
+						{{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
 						<div class="invalid-feedback">
 							{% for error in form.confirm_password.errors %}
 								<span>{{ error }}</span>
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.confirm_password(class="form-control- form-control-lg") }}
+						{{ form.confirm_password(class="form-control form-control-lg") }}
 					{% endif %}
 				</div>
 			</fieldset>
@@ -75,7 +75,7 @@
 	</section>
 	<div class="border-top pt-3">
 		<small class="text-muted">
-			Already have an account? <a href="{{ url_for('login') }}" class="ml-2">Sign in</a>
+			Already have an account? <a href="{{ url_for('users.login') }}" class="ml-2">Sign in</a>
 		</small>
 	</div>
 {% endblock maincontent %}
